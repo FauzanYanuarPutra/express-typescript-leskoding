@@ -15,11 +15,11 @@ let dataUser: User[] = [
 ]
 
 class UserController implements IController {
-  public async index(req: Request, res: Response): Promise<Response> {
+  async index(req: Request, res: Response): Promise<Response> {
     return res.status(200).json({ data : dataUser })
   }
 
-  public async show(req: Request, res: Response): Promise<Response> {
+  async show(req: Request, res: Response): Promise<Response> {
     const id = Number(req.params.id)
     if(isNaN(id)) {
       return res.status(400).send({ message: 'Id must be a number' })
@@ -34,7 +34,7 @@ class UserController implements IController {
     return res.status(200).send({ data: showData})
   }
 
-  public async create(req: Request, res: Response): Promise<Response> {
+  async create(req: Request, res: Response): Promise<Response> {
     const { id, name, age }: User = req.body
     
     const data: User = {
@@ -48,7 +48,7 @@ class UserController implements IController {
     return res.status(200).send({data: dataUser})
   }
 
-  public async update(req: Request, res: Response): Promise<Response> {
+  async update(req: Request, res: Response): Promise<Response> {
     const id = Number(req.params.id)
     const {name, age} = req.body
 
@@ -74,7 +74,7 @@ class UserController implements IController {
     return res.status(200).send({data})
   }
 
-  public async delete(req: Request, res: Response): Promise<Response> {
+  async delete(req: Request, res: Response): Promise<Response> {
 
     const data = dataUser.filter((item) => item.id !== Number(req.params.id))
     return res.status(200).send({ data })

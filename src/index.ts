@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import UserRouter from './routers/UserRoutes'
 import { config as dotenv } from 'dotenv'
+import AuthRoutes from './routers/AuthRoutes'
 
 class App {
   public app: Application;
@@ -31,11 +32,13 @@ class App {
     })
 
     this.app.use('/api/v1/users', UserRouter)
+    this.app.use('/api/v1/auth', AuthRoutes)
+
   }
 }
 
 const app = new App().app;
-const PORT = process.env.DB_PORT;
+const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
   console.log(process.env.DB_HOST)

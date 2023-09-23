@@ -4,8 +4,8 @@ import BaseRoutes from "./BaseRoutes";
 
 class AuthRoutes extends BaseRoutes {
   public routes(): void {
-    this.router.get('/', AuthController.index);
-    this.router.post('/', AuthController.create);
+    this.router.post('/register', AuthController.register);
+    this.router.post('/login', AuthController.login);
   }
 }
 
