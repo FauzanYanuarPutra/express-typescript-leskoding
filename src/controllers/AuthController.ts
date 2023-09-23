@@ -8,10 +8,6 @@ class UserController {
   async register(req: Request, res: Response): Promise<Response> {
     const { username, password } = req.body
 
-    if (!username || !password) {
-      return res.status(400).send({ message: "Username and password are required" })
-    }
-
     const check = await CheckUser.checkUser(username)
 
     if(check) {
@@ -29,9 +25,6 @@ class UserController {
   }
   async login(req: Request, res: Response): Promise<Response> {
     const { username, password } = req.body
-    if (!username || !password) {
-      return res.status(400).send({ message: "Username and password are required" })
-    }
 
     const check = await CheckUser.checkUser(username)
 
