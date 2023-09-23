@@ -42,6 +42,10 @@ class UserController {
 
     return res.status(200).send({message: "Login Success", token})
   }
+
+  async profile(req: Request, res: Response): Promise<Response> {
+    return res.status(200).send({data: req.app.locals.credentials})
+  }
 }
 
 export default new UserController()
