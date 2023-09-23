@@ -6,6 +6,7 @@ import cors from 'cors'
 import UserRouter from './routers/UserRoutes'
 import { config as dotenv } from 'dotenv'
 import AuthRoutes from './routers/AuthRoutes'
+import TodoRoutes from './routers/TodoRoutes'
 
 class App {
   public app: Application;
@@ -33,7 +34,7 @@ class App {
 
     this.app.use('/api/v1/users', UserRouter)
     this.app.use('/api/v1/auth', AuthRoutes)
-
+    this.app.use('/api/v1/todo', TodoRoutes)
   }
 }
 

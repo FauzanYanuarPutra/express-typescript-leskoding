@@ -12,12 +12,11 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
   try {
     const credentials: string | object = jwt.verify(token, secretKey);
     req.app.locals.credentials = credentials;
-    next();
+    return next();
   } catch (err) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  next();
 } 
 
 

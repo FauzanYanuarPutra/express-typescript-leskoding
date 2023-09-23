@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { check, validationResult } from 'express-validator'
 
-const validateAuth = [
-  check('username', 'Username is required').isString(),
-  check('password')
+const validateTodo = [
+  check('description')
     .notEmpty()
-    .withMessage('Password is required')
+    .withMessage('description is required')
     .isLength({ min: 6 })
-    .withMessage('Password must be at least 6 characters long'),
+    .withMessage('description must be at least 6 characters long'),
   (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
 
@@ -20,4 +19,4 @@ const validateAuth = [
 ];
 
 
-export default validateAuth
+export default validateTodo
