@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 const db = require("../db/models");
 
-import PasswordHash from "../utils/PasswordHash";
+import Authentication from "../utils/Authentication";
 import CheckUser from "../utils/CheckUser";
 
 class UserController {
@@ -14,7 +14,7 @@ class UserController {
       return res.status(400).send({ message: "User already exists" })
     }
 
-    const hashPassword = await PasswordHash.hashPassword(password)
+    const hashPassword = await Authentication.hashPassword(password)
     
     await db.user.create({
       username,
@@ -26,19 +26,21 @@ class UserController {
   async login(req: Request, res: Response): Promise<Response> {
     const { username, password } = req.body
 
-    const check = await CheckUser.checkUser(username)
+    const user = await CheckUser.checkUser(username)
 
-    if(!check) {
+    if(!user) {
       return res.status(400).send({ message: "Invalid username or password" })
     }
 
-    const isMatch = await PasswordHash.comparePassword(password, check.password)
+    const isMatch = await Authentication.comparePassword(password, user.password)
 
     if (!isMatch) {
       return res.status(400).send({ message: "Invalid username or password" })
     }
 
-    return res.status(200).send({message: "Login Success"})
+    const token = Authentication.generateToken(user.id, user.username, user.password)
+
+    return res.status(200).send({message: "Login Success", token})
   }
 }
 
